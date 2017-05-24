@@ -1,4 +1,4 @@
-# node-mysql-deadlock-retries2
+# node-mysql-deadlock-retries
 
 ## NOTE - The node-mysql-deadlock-retries package wasn't complete on github and seems to be abandoned. It may not be.. not sure. I decided to finish it up because I could use it. Hope it helps somebody.
 ## https://github.com/Badestrand/node-mysql-deadlock-retries
@@ -9,12 +9,12 @@ The MySQL database can emit deadlock errors (errno 1213, ER_LOCK_DEADLOCK) in ce
 Of course if the query does not issue that deadlock error there is no retry or sleep or delay.
 
 ## Installation
-`npm install node-mysql-deadlock-retries2 --save`
+`npm install node-mysql-deadlock-retries --save`
 
 ## Usage
 ```
 var mysql = require('mysql');
-var proxyMysqlDeadlockRetries = require('node-mysql-deadlock-retries2');
+var proxyMysqlDeadlockRetries = require('node-mysql-deadlock-retries');
 
 var connection = mysql.createConnection({
   host    : 'localhost',
