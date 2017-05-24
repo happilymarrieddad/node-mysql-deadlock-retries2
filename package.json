@@ -8,7 +8,7 @@
   },
   "name": "node-mysql-deadlock-retries",
   "description": "Add retry capabilities for the node-mysql module to dodge the mysql deadlock error",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "directories": {
     "test": "test"
