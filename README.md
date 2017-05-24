@@ -2,6 +2,7 @@
 
 ## NOTE - The node-mysql-deadlock-retries package wasn't complete on github and seems to be abandoned. It may not be.. not sure. I decided to finish it up because I could use it. Hope it helps somebody.
 ## https://github.com/Badestrand/node-mysql-deadlock-retries
+## This is not my package and I DID NOT WRITE THIS CODE! I'm just pushing it to npm so it can be used.
 
 The MySQL database can emit deadlock errors (errno 1213, ER_LOCK_DEADLOCK) in certain scenarios, e.g. when you are mass-executing modifying queries like inserting or updating. This module right here helps you if you use the [node-mysql](https://github.com/felixge/node-mysql) module for your database connections. It proxies the connection's *query* method and retries to execute the query a few times when it fails with that deadlock error. The retries are separated by a configurable, random length, sleep.
 
