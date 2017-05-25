@@ -4,6 +4,8 @@ The MySQL database can emit deadlock errors (errno 1205 - 1213, ER_LOCK_DEADLOCK
 
 Of course if the query does not issue that deadlock error there is no retry or sleep or delay.
 
+The original project https://github.com/Badestrand/node-mysql-deadlock-retries wasn't complete and seems abandoned so I finished it. Let me know what you think.
+
 ## Installation
 `npm install node-mysql-deadlock-retries --save`
 
@@ -54,5 +56,9 @@ Please note that when using with transactions TODO???
 
 
 ## Release History
+
+* 2.0.0 Changing the way it handles retries
+
+* 1.0.2 Pushed to npm
 
 * 1.0.0 Initial release
