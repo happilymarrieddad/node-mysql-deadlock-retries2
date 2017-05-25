@@ -1,9 +1,6 @@
 # node-mysql-deadlock-retries
 
-## NOTE - The node-mysql-deadlock-retries package wasn't complete on github and seems to be abandoned. It may not be.. not sure. I decided to finish it up because I could use it. Hope it helps somebody.
-## https://github.com/Badestrand/node-mysql-deadlock-retries
-
-The MySQL database can emit deadlock errors (errno 1213, ER_LOCK_DEADLOCK) in certain scenarios, e.g. when you are mass-executing modifying queries like inserting or updating. This module right here helps you if you use the [node-mysql](https://github.com/felixge/node-mysql) module for your database connections. It proxies the connection's *query* method and retries to execute the query a few times when it fails with that deadlock error. The retries are separated by a configurable, random length, sleep.
+The MySQL database can emit deadlock errors (errno 1205 - 1213, ER_LOCK_DEADLOCK, ERR_LOCK_WAIT_TIMEOUT) in certain scenarios, e.g. when you are mass-executing modifying queries like inserting or updating. This module right here helps you if you use the [node-mysql](https://github.com/felixge/node-mysql) module for your database connections. It proxies the connection's *query* method and retries to execute the query a few times when it fails with that deadlock error. The retries are separated by a configurable, random length, sleep.
 
 Of course if the query does not issue that deadlock error there is no retry or sleep or delay.
 
@@ -25,8 +22,9 @@ var connection = mysql.createConnection({
 var retries: 5;      // How many times will the query be retried when the ER_LOCK_DEADLOCK error occurs
 var minMillis: 1;    // The minimum amount of milliseconds that the system sleeps before retrying
 var maxMillis: 100;  // The maximum amount of milliseconds that the system sleeps before retrying
+var debug = 1
 
-proxyMysqlDeadlockRetries(connection, retries, minMillis, maxMillis);
+proxyMysqlDeadlockRetries(connection, retries, minMillis, maxMillis, debug);
 ```
 Example code for when you are using the connection pool instead:
 ```
@@ -37,7 +35,7 @@ var dbPool = mysql.createPool({
 	database: 'my_db'
 });
 dbPool.on('connection', function(connection) {
-	proxyMysqlDeadlockRetries(connection, retries, minMillis, maxMillis);
+	proxyMysqlDeadlockRetries(connection, retries, minMillis, maxMillis, debug);
 })
 ```
 
