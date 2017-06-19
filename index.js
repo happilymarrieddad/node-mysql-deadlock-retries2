@@ -1,4 +1,5 @@
 'use-strict'
+
 var mysql = require('mysql')
 var ER_LOCK_WAIT_TIMEOUT = 1205
 var ER_LOCK_TIMEOUT = 1213
@@ -24,7 +25,6 @@ function proxyQuery(connection,retries,minMillis,maxMillis,debug) {
 		}
 
 		var retry_copy = retries || 1
-		var sleepMillis = Math.floor((Math.random()*maxMillis)+minMillis)
 
 		var handleResponse = function(err,rows) {
 			if (err && (err.errno == ER_LOCK_WAIT_TIMEOUT || err.errno == ER_LOCK_TIMEOUT)) {
@@ -33,6 +33,7 @@ function proxyQuery(connection,retries,minMillis,maxMillis,debug) {
 					if (debug) console.log(`Out of retries so just returning the error.`)
 					return cb(err,rows)
 				}
+				var sleepMillis = Math.floor((Math.random()*maxMillis)+minMillis)
 
 				if (debug) console.log('Retrying request with',retry_copy,'retries left. Timeout',sleepMillis)
 				return setTimeout(function() {
