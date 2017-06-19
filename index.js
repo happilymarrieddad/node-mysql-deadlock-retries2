@@ -18,7 +18,7 @@ function proxyQuery(connection,retries,minMillis,maxMillis,debug) {
 
 	var conn = mysql.createConnection(config)
 	connection.query = function(sql, values, cb) {
-		if (!cb) {
+		if (typeof values == 'function') {
 			cb = values
 			values = []
 		}
