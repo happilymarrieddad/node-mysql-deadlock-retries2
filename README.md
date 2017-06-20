@@ -21,12 +21,13 @@ var connection = mysql.createConnection({
   database: 'my_db'
 });
 
-var retries: 5;      // How many times will the query be retried when the ER_LOCK_DEADLOCK error occurs
-var minMillis: 1;    // The minimum amount of milliseconds that the system sleeps before retrying
-var maxMillis: 100;  // The maximum amount of milliseconds that the system sleeps before retrying
-var debug = 1
+var retries: 5;      	// How many times will the query be retried when the ER_LOCK_DEADLOCK error occurs
+var minMillis: 1;    	// The minimum amount of milliseconds that the system sleeps before retrying
+var maxMillis: 100;  	// The maximum amount of milliseconds that the system sleeps before retrying
+var debug = 1;		 	// Show all the debugs on how the proxy is working
+var show_all_errors = 1;// Show all errors that are outside of the proxy
 
-proxyMysqlDeadlockRetries(connection, retries, minMillis, maxMillis, debug);
+proxyMysqlDeadlockRetries(connection, retries, minMillis, maxMillis, debug, show_all_errors);
 ```
 Example code for when you are using the connection pool instead:
 ```
@@ -37,7 +38,7 @@ var dbPool = mysql.createPool({
 	database: 'my_db'
 });
 dbPool.on('connection', function(connection) {
-	proxyMysqlDeadlockRetries(connection, retries, minMillis, maxMillis, debug);
+	proxyMysqlDeadlockRetries(connection, retries, minMillis, maxMillis, debug, show_all_errors);
 })
 ```
 
