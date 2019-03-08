@@ -3,6 +3,7 @@
 var mysql = require('mysql')
 var ER_LOCK_WAIT_TIMEOUT = 1205
 var ER_LOCK_TIMEOUT = 1213
+let ER_LOCK_DEADLOCK = 1213
 
 function proxyQuery(connection,retries,minMillis,maxMillis,debug,show_all_errors) {
 	retries = Number.isInteger(retries) ? retries : 5
@@ -27,7 +28,7 @@ function proxyQuery(connection,retries,minMillis,maxMillis,debug,show_all_errors
 		var retry_copy = retries || 1
 
 		var handleResponse = function(err,rows) {
-			if (err && (+err.errno == +ER_LOCK_WAIT_TIMEOUT || +err.errno == +ER_LOCK_TIMEOUT)) {
+			if (err && (+err.errno == +ER_LOCK_WAIT_TIMEOUT || +err.errno == +ER_LOCK_TIMEOUT || +err.errno == +ER_LOCK_DEADLOCK)) {
 				if (debug) console.log(`ERROR - ${ err.errno } ${ err.message }`)
 				if (!--retry_copy) {
 					if (debug) console.log(`Out of retries so just returning the error.`)
