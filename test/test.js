@@ -4,7 +4,7 @@ var cluster = require('cluster')
 var os = require('os')
 
 var numCPUs = os.cpus().length
-var proxyMysqlDeadlockRetries = require('node-mysql-deadlock-retries')
+var proxyMysqlDeadlockRetries = require('../index')
 
 if (cluster.isMaster) {
 	for (var i = 0; i < 200; i++) {
